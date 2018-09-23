@@ -1,5 +1,7 @@
 package client;
 
+//import javax.media.opengl.awt.GLCanvas;
+
 import javax.swing.*;
 
 import java.util.Map;
@@ -7,12 +9,16 @@ import java.util.Map.Entry;
 //import java.awt.event.KeyEvent;
 import java.util.Iterator;
 
+
+
 public class UserInterface {
 	
 	JFrame frame;
 	JMenu menu, subMenu;
 	JMenuItem menuItem;
 	JMenuBar menuBar;
+	
+	//GLcanvas view3d;
 	
 	private void createGUI(String title) {
 		//frame setup
