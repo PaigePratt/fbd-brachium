@@ -1,1 +1,2 @@
-Code for the psoc arm controller
+# Code for the PSoC 
+
