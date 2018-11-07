@@ -11,10 +11,9 @@ public class Robot {
         return robot;
     }
 
-    private Queue<AbstractMap.SimpleEntry<String, Double>> motorQueue = new ConcurrentLinkedQueue<>();
-    private Map<String, Double> sensorMap = new ConcurrentHashMap<>();
+    public static Queue<AbstractMap.SimpleEntry<MotorsEnum, Double>> motorQueue = new ConcurrentLinkedQueue<>();
+    public static Map<SensorsEnum, Integer> sensorMap = new ConcurrentHashMap<>();
 
     private Robot() {
-
     }
 }

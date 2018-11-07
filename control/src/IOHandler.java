@@ -1,7 +1,7 @@
 public class IOHandler extends Thread {
     private static IOHandler ourInstance = new IOHandler();
 
-    public static IOHandler getInstance() {
+    public static synchronized IOHandler getInstance() {
         return ourInstance;
     }
 
