@@ -10,8 +10,6 @@ typedef struct {
     
 } controlCode;
 
-int getArgCount(controlCode cC);
-
 controlCode controlCodes[] = {
     set_motor_volts, {1, 1},
     set_servo_pos, {1, 1},
