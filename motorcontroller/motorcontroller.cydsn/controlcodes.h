@@ -10,6 +10,7 @@ typedef struct {
     
 } controlCode;
 
+//control codes
 controlCode controlCodes[] = {
     set_motor_volts, {1, 1},
     set_servo_pos, {1, 1},
