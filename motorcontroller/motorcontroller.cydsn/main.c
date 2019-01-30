@@ -1,16 +1,17 @@
 #include "project.h"
-#include "controlcodes.h"
+#include "globals.h"
 
 #include <stdlib.h>
 
-void hasDataHandler() {
-    
-}
-
 void apiInit() {
-    hasData_StartEx(hasDataHandler);
+    RTC_Start();
+    MillisecCounter_Start();
     UART_Start();
 }
+
+void parseSerial();
+void sampleData();
+void updateMotors();
 
 int main(void) {
     CyGlobalIntEnable; /* Enable global interrupts. */
@@ -18,7 +19,9 @@ int main(void) {
     apiInit();
     
     for(;;) {
-        
+        parseSerial();
+        sampleData();
+        updateMotors();
     }
 }
 
