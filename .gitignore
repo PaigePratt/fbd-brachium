@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/c,maven,eclipse,intellij,psoccreator
 
+### CAD files ###
+
+OldVersions/
+
 ### C ###
 # Prerequisites
 *.d
