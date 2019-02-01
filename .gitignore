@@ -229,8 +229,8 @@ buildNumber.properties
 Debug/
 Release/
 Export/
-*/codegentemp
-*/Generated_Source
+*/motorcontroller/codegentemp
+*/motorcontroller/Generated_Source
 *_datasheet.pdf
 *_timing.html
 *.cycdx
