@@ -106,7 +106,7 @@ buildNumber.properties
 /motorcontroller/motorcontroller.cydsn/Release/
 /motorcontroller/motorcontroller.cydsn/Export/
 */codegentemp/
-*/Generated_Source/
+/motorcontroller/motorcontroller.cydsn/Generated_Source/
 *_datasheet.pdf
 *_timing.html
 *.cycdx
