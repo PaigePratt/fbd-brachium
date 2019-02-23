@@ -3,13 +3,15 @@
 
 #include <stdlib.h>
 
+#define INIT_PART(name, sub) name ## _ ##sub ##_Start()
+
 void apiInit() {
     RTC_Start();
     MillisecCounter_Start();
     UART_Start();
+    INIT_PART(Stepper_Motor_Driver, STM_SHOULDER);
 }
 
-void parseSerial();
 void sampleData();
 void updateMotors();
 
@@ -19,9 +21,9 @@ int main(void) {
     apiInit();
     
     for(;;) {
-        parseSerial();
-        sampleData();
-        updateMotors();
+        //sampleData();
+        //updateMotors();
+        
     }
 }
 
