@@ -1,25 +1,17 @@
-/* ========================================
- *
- * Copyright YOUR COMPANY, THE YEAR
- * All Rights Reserved
- * UNPUBLISHED, LICENSED SOFTWARE.
- *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
- *
- * ========================================
-*/
-
 #include "project.h" 
 
+#include "controlCommands.h" 
 #include <stdlib.h>
 
 char* rawBuffer;
 uint16 buffSize;
 
+
 void readFromUART() {
     //grab first two bytes for size of command stream
-    buffSize = UART_GetChar() && UART_GetChar();
+    char high = UART_GetChar();
+    char low  = UART_GetChar();
+    buffSize = (high << 8) | low;
     //allocate a buffer with one extra for a null terminator
     rawBuffer = malloc(buffSize+1);
     //read until the buffer is full
@@ -29,7 +21,14 @@ void readFromUART() {
 }
 
 void parse() {
-    
+    for(int i = 0; i < buffSize; i++) {
+        
+    }
+}
+
+void parseSerial() {
+    readFromUART();
+    parse();
 }
 
 /* [] END OF FILE */
