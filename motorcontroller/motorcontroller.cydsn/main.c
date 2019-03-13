@@ -5,9 +5,17 @@
 
 #define INIT_PART(name, sub) name ## _ ##sub ##_Start()
 
+
+void milliSecPassed() {
+    milliseconds++;
+    
+    if(milliseconds >= commandQueue[queueCount+1].timeInMillisec) {
+        
+    }
+}
+
 void apiInit() {
     RTC_Start();
-    MillisecCounter_Start();
     UART_Start();
     INIT_PART(Stepper_Motor_Driver, STM_SHOULDER);
 }
@@ -17,12 +25,9 @@ void updateMotors();
 
 int main(void) {
     CyGlobalIntEnable; /* Enable global interrupts. */
-    
     apiInit();
     
     for(;;) {
-        //sampleData();
-        //updateMotors();
         
     }
 }
