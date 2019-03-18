@@ -3,7 +3,7 @@
     
     //function prototypes
     
-    void setMotorVoltage(char* args);
+    void setStepperMotor(char* args);
     void setServoPos(char* args);
     void getSensorData(char* args);
 
@@ -13,14 +13,17 @@
 
     typedef struct {
         controlFunction fn;
+        unsigned int timeInMillisec;
         char* data;
         //this char is here to align memmory and shouldnt be used for anything more
         char align;
     } controlCommandToken;
     
     //only used in the lookup table
-    typedef struct {controlFunction fn; 
+    typedef struct {
+        controlFunction fn; 
         unsigned char argCount;
+        
     } controlCommand;
     
     //controlCommand functionTable[] = {
