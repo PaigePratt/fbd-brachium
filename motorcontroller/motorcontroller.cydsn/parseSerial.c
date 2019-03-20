@@ -13,7 +13,7 @@ void readFromUART() {
     char low  = UART_GetChar();
     buffSize = (high << 8) | low;
     //allocate a buffer with one extra for a null terminator
-    rawBuffer = malloc(buffSize+1);
+    realloc(rawBuffer, buffSize+1);
     //read until the buffer is full
     for(int i = 0; i < buffSize; i++) {
         rawBuffer[i] = UART_GetChar();
