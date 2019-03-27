@@ -302,8 +302,14 @@
       <Data key="b0162966-0060-4af5-82d1-fcb491ad7619/be0a0e37-ad17-42ca-b5a1-1a654d736358" value="UART_IntClock" />
     </Group>
     <Group key="Pin">
+      <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="StepOnce" />
+      <Data key="8e277cfc-1218-4ebc-8ca3-b7958124ada5" value="STM_SHOULDER_A" />
+      <Data key="98b61e43-0430-46d1-a52f-6368a19e12d8" value="STM_SHOULDER_B_N" />
       <Data key="5110ccd2-cc7a-4f93-a2b4-b86a972e3b71" value="STM_Coil_2" />
+      <Data key="52947c57-754a-4cdf-a2b3-953e813a6110" value="STM_SHOULDER_B" />
       <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="Rx" />
+      <Data key="99784350-d391-4da3-8b40-cae14b5d9f30" value="STM_SHOULDER_A_N" />
+      <Data key="e5f0f8fd-ddca-4f8d-91ab-d1559edc5c0b" value="Supply" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="STM_Coil_1" />
       <Data key="ed092b9b-d398-4703-be89-cebf998501f6" value="Tx" />
     </Group>
@@ -3392,9 +3398,47 @@
     </Group>
   </Group>
   <Group key="Pin2">
-    <Group key="e851a3b9-efb8-48be-bbb8-b303b216c393">
+    <Group key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba">
+      <Group key="0">
+        <Data key="Port Format" value="2,2" />
+      </Group>
+    </Group>
+    <Group key="8e277cfc-1218-4ebc-8ca3-b7958124ada5">
+      <Group key="0">
+        <Data key="Port Format" value="0,0" />
+      </Group>
+    </Group>
+    <Group key="98b61e43-0430-46d1-a52f-6368a19e12d8">
+      <Group key="0">
+        <Data key="Port Format" value="0,3" />
+      </Group>
+    </Group>
+    <Group key="5110ccd2-cc7a-4f93-a2b4-b86a972e3b71">
+      <Group key="0">
+        <Data key="Port Format" value="0,4" />
+      </Group>
+    </Group>
+    <Group key="52947c57-754a-4cdf-a2b3-953e813a6110">
+      <Group key="0">
+        <Data key="Port Format" value="0,1" />
+      </Group>
+    </Group>
+    <Group key="99784350-d391-4da3-8b40-cae14b5d9f30">
       <Group key="0">
         <Data key="Port Format" value="0,2" />
+      </Group>
+    </Group>
+    <Group key="e5f0f8fd-ddca-4f8d-91ab-d1559edc5c0b">
+      <Group key="0">
+        <Data key="Port Format" value="2,7" />
+      </Group>
+    </Group>
+    <Group key="UnAssigned Pins">
+      <Group key="1425177d-0d0e-4468-8bcc-e638e5509a9b">
+        <Data key="0" value="131974955259070071" />
+      </Group>
+      <Group key="e851a3b9-efb8-48be-bbb8-b303b216c393">
+        <Data key="0" value="131974955458677850" />
       </Group>
     </Group>
   </Group>

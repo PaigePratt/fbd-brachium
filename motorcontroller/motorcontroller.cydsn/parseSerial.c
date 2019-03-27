@@ -7,6 +7,7 @@ char* rawBuffer;
 uint16 buffSize;
 
 
+
 void readFromUART() {
     //grab first two bytes for size of command stream
     char high = UART_GetChar();

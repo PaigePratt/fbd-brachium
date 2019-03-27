@@ -1,11 +1,12 @@
 #ifndef CONTROL_COMMANDS
 #define CONTROL_COMMANDS 1
     
+    
     //function prototypes
     
     void setStepperMotor(char* args);
-    void setServoPos(char* args);
-    void getSensorData(char* args);
+    void holdStepper(char* args);
+    
 
     typedef void (*controlFunction)(char*);
     
@@ -26,11 +27,10 @@
         
     } controlCommand;
     
-    //controlCommand functionTable[] = {
-    //    {setMotorVoltage, 2},
-    //    {setServoPos, 2},
-    //    {getSensorData, 2}
+    //controlCommand Commands[] = {
+    //    {setStepperMotor, 3},
+    //    {holdStepper, 1}
     //};
-
+    
 #endif
 /* [] END OF FILE */

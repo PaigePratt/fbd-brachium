@@ -25,9 +25,8 @@
         signed short delta; //the distance the motor should be running given the durration
         //the states of the two h-briges with msOffset being the bit offset applied before
         //the states are sent to the control register CR_H_Bridge
-        unsigned char motorStates;
-        unsigned char msOffset;
-        unsigned char pos; //current pos
+        unsigned char motorStates; //bits 0-1: state of enables bits 4-7:offset
+        
         //Clockwise is positive and counterclock wise being negative
         unsigned char lastStep; //last step in the sequence (0-3)
         
