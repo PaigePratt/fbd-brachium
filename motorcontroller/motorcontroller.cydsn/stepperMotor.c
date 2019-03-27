@@ -29,6 +29,16 @@ void setStepper(stepperMotor* motor, unsigned char pos, unsigned int durration) 
     
 }
 
+void setStepperMotor(char* args) {
+    char motor = args[0];
+    char pos = args[1];
+    unsigned int durr = args[2];
+    
+    
+}
 
+void holdStepper(char* args) {
+    
+}
 
 /* [] END OF FILE */

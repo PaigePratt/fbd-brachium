@@ -1,4 +1,4 @@
-#ifndef DRIVER_STEPPER_MOTOR
+#if !defined(DRIVER_STEPPER_MOTOR)
 #define DRIVER_STEPPER_MOTOR 1
     //PSoC creator does this weird ass indents if there's a way to fix it I will
     

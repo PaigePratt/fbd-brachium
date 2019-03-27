@@ -1,36 +1,41 @@
-#ifndef CONTROL_COMMANDS
+#if !defined(CONTROL_COMMANDS)
 #define CONTROL_COMMANDS 1
     
-    
-    //function prototypes
-    
-    void setStepperMotor(char* args);
-    void holdStepper(char* args);
-    
+#define CCT_INQUEUE 0
+#define CCT_DONE 1
 
-    typedef void (*controlFunction)(char*);
-    
-    //struct definitions
+//function prototypes
 
-    typedef struct {
-        controlFunction fn;
-        unsigned int timeInMillisec;
-        char* data;
-        //this char is here to align memmory and shouldnt be used for anything more
-        char align;
-    } controlCommandToken;
+void setStepperMotor(char* args);
+void holdStepper(char* args);
+
+
+
+typedef void (*controlFunction)(char*);
+
+//struct definitions
+
+typedef struct {
+    controlFunction fn;
+    //unsigned int timeInMillisec;
+    char* data;
+    //this char is here to align memmory and shouldnt be used for anything more
+    char state; //marks wheather or not the command is completed
+} controlCommandToken;
+
+//only used in the lookup table
+typedef struct {
+    controlFunction fn; 
+    unsigned char argCount;
     
-    //only used in the lookup table
-    typedef struct {
-        controlFunction fn; 
-        unsigned char argCount;
-        
-    } controlCommand;
-    
-    //controlCommand Commands[] = {
-    //    {setStepperMotor, 3},
-    //    {holdStepper, 1}
-    //};
-    
+} controlCommand;
+
+controlCommand Commands[] = {
+    {setStepperMotor, 6},
+    {holdStepper, 1}
+};
+
+#define EMERGENCY_ALL_STOP 0xff
+
 #endif
 /* [] END OF FILE */
