@@ -3,18 +3,22 @@
 #include "stepperMotor.h" 
 #include "globals.h"
 
+#include <math.h>
+
 extern stepperMotor StepperMotors[3];
 
-char stepEnable[] = {
-    3, //11b
-    6, //110b
-    12,//1100b
-    9// 1001/
-};
-
 void updateMotors() {
-    for(unsigned char i = 0; i < 4; i++) {
+    for(unsigned int i = 0; i < 4; i++) {
+        StepperMotors[i].absolutePos += StepperMotors[i].delta;
         
+        if(StepperMotors[i].absolutePos-(int)StepperMotors[i].absolutePos == 0) {
+            StepperMotors[i].stepSeq++;
+            StepperMotors[i].ControlReg(steps[StepperMotors[i].stepSeq]);
+        }
+        
+        else {
+            
+        }
     }
 }
 

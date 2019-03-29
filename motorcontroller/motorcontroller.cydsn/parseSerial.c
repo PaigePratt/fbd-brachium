@@ -7,8 +7,6 @@
 char* rawBuffer;
 uint16 buffSize;
 
-//change me
-#define COMMAND_MAX 2
 
 void readFromUART() {
     //grab first two bytes for size of command stream
@@ -23,6 +21,10 @@ void readFromUART() {
     }
     
 }
+
+//ignore warnings about indexing an array with a char
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wchar-subscripts"
 
 void parse() {
     for(int i = 0; i < buffSize; i++) {
@@ -39,6 +41,10 @@ void parse() {
             realloc(commandQueue, currentAllocatedEntriesCQ * sizeof(controlCommandToken));
         }
         
+        if(rawBuffer[i] == EMERGENCY_ALL_STOP) {
+            //halt the machine
+        }
+        
         //set the function to the appropriate command
         commandQueue[queueCount].fn = Commands[rawBuffer[i]].fn;
         //allocate space for args
@@ -49,14 +55,19 @@ void parse() {
         for(j = 0; j < Commands[rawBuffer[i]].argCount; j++) {
             commandQueue[queueCount].data[j] = rawBuffer[i + j];
         }
-        
-        //incrament things
-        queueCount++;
         i = i + j;
+        commandQueue[queueCount].timeInMillisec = 
+            (rawBuffer[i] << 24 | rawBuffer[i+1] << 16 | rawBuffer[i+2] << 8 | rawBuffer[i+3]);
+        i = i + 4;
+        
+        //increment things
+        queueCount++;
         
         
     }
 }
+
+#pragma GCC diagnostic pop
 
 void parseSerial() {
     readFromUART();

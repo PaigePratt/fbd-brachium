@@ -9,15 +9,13 @@
 void setStepperMotor(char* args);
 void holdStepper(char* args);
 
-
-
 typedef void (*controlFunction)(char*);
 
 //struct definitions
 
 typedef struct {
     controlFunction fn;
-    //unsigned int timeInMillisec;
+    unsigned int timeInMillisec;
     char* data;
     //this char is here to align memmory and shouldnt be used for anything more
     char state; //marks wheather or not the command is completed
@@ -30,10 +28,16 @@ typedef struct {
     
 } controlCommand;
 
+void resetTime(char* args);
+
 controlCommand Commands[] = {
     {setStepperMotor, 6},
-    {holdStepper, 1}
+    {holdStepper, 1},
+    {resetTime, 0}
+    
 };
+
+#define COMMAND_MAX 3
 
 #define EMERGENCY_ALL_STOP 0xff
 
