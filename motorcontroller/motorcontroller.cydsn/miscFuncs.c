@@ -7,4 +7,10 @@ void resetTime(char* args) {
     milliseconds = 0;
 }
 
+void clearCommands(char* args) {
+    args = args;
+    
+    queueCount = 0;
+}
+
 /* [] END OF FILE */

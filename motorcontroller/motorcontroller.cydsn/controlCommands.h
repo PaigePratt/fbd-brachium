@@ -29,15 +29,16 @@ typedef struct {
 } controlCommand;
 
 void resetTime(char* args);
+void clearCommands(char* args);
 
 controlCommand Commands[] = {
     {setStepperMotor, 6},
     {holdStepper, 1},
-    {resetTime, 0}
-    
+    {resetTime, 0},
+    {clearCommands, 0}
 };
 
-#define COMMAND_MAX 3
+#define COMMAND_MAX 5
 
 #define EMERGENCY_ALL_STOP 0xff
 

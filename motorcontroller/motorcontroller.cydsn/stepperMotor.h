@@ -34,8 +34,6 @@ char steps[] = {
     12,//1100b
     9// 1001/
 };
-
-
     
 #endif
 /* [] END OF FILE */

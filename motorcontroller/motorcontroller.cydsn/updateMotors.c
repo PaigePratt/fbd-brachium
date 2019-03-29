@@ -12,12 +12,13 @@ void updateMotors() {
         StepperMotors[i].absolutePos += StepperMotors[i].delta;
         
         if(StepperMotors[i].absolutePos-(int)StepperMotors[i].absolutePos == 0) {
+            
             StepperMotors[i].stepSeq++;
             StepperMotors[i].ControlReg(steps[StepperMotors[i].stepSeq]);
         }
         
         else {
-            
+            //TODO step interpolation
         }
     }
 }

@@ -42,7 +42,6 @@ int main(void) {
     for(;;) {
         parseSerial();
         updateMotors();
-        
     }
 }
 
