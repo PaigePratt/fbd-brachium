@@ -19,14 +19,15 @@ extern void updateMotors();
 extern void parseSerial();
 
 unsigned short lastInitializedToken = 0;
+unsigned short queueItor;
 
 void milliSecPassed() {
     milliseconds++;
     
-    for(unsigned short i = lastInitializedToken; i < queueCount; i++) {
-        if(commandQueue[i].state == CCT_INQUEUE && milliseconds >= commandQueue[i].timeInMillisec) {
-            commandQueue[i].fn(commandQueue[i].data);
-            commandQueue[i].state = CCT_DONE;
+    for(queueItor = lastInitializedToken; queueItor < queueCount; queueItor++) {
+        if(commandQueue[queueItor].state == CCT_INQUEUE && milliseconds >= commandQueue[queueItor].timeInMillisec) {
+            commandQueue[queueItor].fn(commandQueue[queueItor].data);
+            commandQueue[queueItor].state = CCT_DONE;
         }
     }   
 }
@@ -38,12 +39,6 @@ int main(void) {
     ///commandQueue initialization
     commandQueue = malloc(sizeof(controlCommandToken) * DEFAULT_PREALLOCATED_SPACE);
     currentAllocatedEntriesCQ = DEFAULT_PREALLOCATED_SPACE;
-    
-    const char* args = "\0x0\0x100\0x0\0x0\0x1000";
-    
-    controlCommandToken a = {setStepperMotor, 1000, args , CCT_INQUEUE};
-    
-    commandQueue[0] = a;
     
     queueCount++;
     

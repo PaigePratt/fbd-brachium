@@ -3,6 +3,9 @@
 
 stepperMotor StepperMotors[] = {
     {STM_SHOULDER_SMD_WriteCompare1, STM_SHOULDER_SMD_WriteCompare2, STM_SHOULDER_H_Bridge_Write,
+        0, 0, 0, 0, 0},
+    
+    {STM_ELBOW_SMD_WriteCompare1, STM_ELBOW_SMD_WriteCompare2, STM_ELBOW_H_Bridge_Write,
         0, 0, 0, 0, 0}
 };
 

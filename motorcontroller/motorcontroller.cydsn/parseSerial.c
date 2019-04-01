@@ -1,7 +1,8 @@
 #include "project.h" 
-
 #include "controlCommands.h" 
 #include "globals.h"
+
+#include <stdio.h>
 #include <stdlib.h>
 
 char* rawBuffer;
@@ -28,11 +29,18 @@ void readFromUART() {
 
 void parse() {
     for(int i = 0; i < buffSize; i++) {
+        //while I doubt that such an error would arrise (namely cause 
         if(rawBuffer[i] > COMMAND_MAX) {
             //error
             
-            return;
+            //dump to serial
+            printf("Error: command with with value %c does not exist\n", rawBuffer[i]); 
+            
+            
+            //exit the parser
+            //return;
         }
+        
         
         //check to see if we have space in the command queue
         //if(queueCount+1 > currentAllocatedEntriesCQ) {
@@ -56,6 +64,7 @@ void parse() {
             commandQueue[queueCount].data[j] = rawBuffer[i + j];
         }
         i = i + j;
+        //convert the following 4 bytes into one uInt representing the time in which the event will be called
         commandQueue[queueCount].timeInMillisec = 
             (rawBuffer[i] << 24 | rawBuffer[i+1] << 16 | rawBuffer[i+2] << 8 | rawBuffer[i+3]);
         i = i + 4;

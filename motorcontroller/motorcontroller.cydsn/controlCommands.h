@@ -30,12 +30,14 @@ typedef struct {
 
 void resetTime(char* args);
 void clearCommands(char* args);
+void pruneCompletedEvents(char* args);
 
 controlCommand Commands[] = {
     {setStepperMotor, 6},
     {holdStepper, 1},
     {resetTime, 0},
-    {clearCommands, 0}
+    {clearCommands, 0},
+    {pruneCompletedEvents, 0}
 };
 
 #define COMMAND_MAX 5

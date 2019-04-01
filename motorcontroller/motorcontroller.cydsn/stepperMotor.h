@@ -6,20 +6,19 @@
 #define STM_SHOULDER 1
 #define STM_WRIST 2
 
-//enable adresses for the various h bridges
-//#define STM_ELBOW_CA 0000001b
-//#define STM_ELBOW_CB 0000010b
-
 //this is the maximum number of steps to do one 360 degree rotation
 #define STM_MAX_STEPS_PER_REV 200
 
-typedef struct {
+//may need to be more finely tuned
+#define MIN_TIME_BETWEEN_STEPS_MS 100
+    
+typedef struct stepperMotor {
     //PWM writeCompare functions
     void (*Coil1Period)(unsigned char);
     void (*Coil2Period)(unsigned char);
-    void (*ControlReg)(unsigned char);
+    void (*ControlRegWrite)(unsigned char);
     //how long the motor should run until its at its given position
-    unsigned int durrationInMsecs;
+    unsigned int durrationInMsecs; //when to trigger the event based on the PSoC local clock
     unsigned int timeBetweenStepsMS; //millisecs
     float absolutePos;
     float delta; //the distance the motor should be running given the durration
@@ -28,12 +27,13 @@ typedef struct {
 
 void setStepper(stepperMotor* motor, unsigned char pos, unsigned int durration);
 
+//these are the various values to be written to the h-bridge(s)
 char steps[] = {
     3, //11b
     6, //110b
     12,//1100b
     9// 1001/
 };
-    
+
 #endif
 /* [] END OF FILE */
