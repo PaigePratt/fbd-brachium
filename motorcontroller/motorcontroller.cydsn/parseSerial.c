@@ -35,11 +35,11 @@ void parse() {
         }
         
         //check to see if we have space in the command queue
-        if(queueCount+1 > currentAllocatedEntriesCQ) {
+        //if(queueCount+1 > currentAllocatedEntriesCQ) {
             //if not add 4 entries
-            currentAllocatedEntriesCQ += 4;
-            realloc(commandQueue, currentAllocatedEntriesCQ * sizeof(controlCommandToken));
-        }
+        //    currentAllocatedEntriesCQ += 4;
+        //    realloc(commandQueue, currentAllocatedEntriesCQ * sizeof(controlCommandToken));
+        //}
         
         if(rawBuffer[i] == EMERGENCY_ALL_STOP) {
             //halt the machine

@@ -35,9 +35,17 @@ int main(void) {
     CyGlobalIntEnable; /* Enable global interrupts. */
     apiInit();
     
-    //commandQueue initialization
+    ///commandQueue initialization
     commandQueue = malloc(sizeof(controlCommandToken) * DEFAULT_PREALLOCATED_SPACE);
     currentAllocatedEntriesCQ = DEFAULT_PREALLOCATED_SPACE;
+    
+    const char* args = "\0x0\0x100\0x0\0x0\0x1000";
+    
+    controlCommandToken a = {setStepperMotor, 1000, args , CCT_INQUEUE};
+    
+    commandQueue[0] = a;
+    
+    queueCount++;
     
     for(;;) {
         parseSerial();
