@@ -7,6 +7,8 @@
 
 extern stepperMotor StepperMotors[3];
 
+#define SUPPLY_MAX 255
+
 void updateMotors() {
     for(unsigned int i = 0; i < 2; i++) {
         
@@ -23,7 +25,11 @@ void updateMotors() {
         else {
             //TODO step interpolation
             
+            //calculate current step delta
+            float stepBetween = (StepperMotors[i].absolutePos - floorf(StepperMotors[i].absolutePos));
             
+            StepperMotors[i].Coil1Period(stepBetween * SUPPLY_MAX);
+            StepperMotors[i].Coil2Period(SUPPLY_MAX - (stepBetween * SUPPLY_MAX));
         }
     }
 }

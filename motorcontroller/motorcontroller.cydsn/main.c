@@ -6,9 +6,8 @@
 #include <math.h>
 
 #define INIT_PART(sub, name) name ## _ ##sub ##_Start()
-
-#define INIT_MOTOR(section) INIT_PART(SMD, section); \
-    INIT_PART(H_Bridge, section);
+#define INIT_MOTOR(section) INIT_PART(SMD, section); INIT_PART(H_Bridge, section);
+#define DELAY_LOOP 5
 
 extern void updateMotors();
 extern void parseSerial();
@@ -18,6 +17,7 @@ unsigned short queueItor;
 
 extern stepperMotor StepperMotors[3];
 
+//this is the handler that the oneMillisecPassed inturrupt calls
 void milliSecPassed() {
     milliseconds++;
     
@@ -45,7 +45,6 @@ void addToCommandQueue(controlFunction fn, unsigned int time, char* args, int sz
 int main(void) {
     CyGlobalIntEnable; /* Enable global interrupts. */
     
-    
     UART_Start();
     PWM_Start();
     oneMillsecPassed_StartEx(milliSecPassed);
@@ -62,10 +61,11 @@ int main(void) {
     };
     
     addToCommandQueue(setStepperMotor, 2000, data, 6); 
-    int i = 0;
+
     for(;;) {
         parseSerial();
         updateMotors();
+        CyDelay(DELAY_LOOP);
     }
 }
 
