@@ -9,11 +9,14 @@ extern stepperMotor StepperMotors[3];
 
 void updateMotors() {
     for(unsigned int i = 0; i < 2; i++) {
+        
         StepperMotors[i].absolutePos += StepperMotors[i].delta;
         
-        if(StepperMotors[i].absolutePos-(int)StepperMotors[i].absolutePos == 0 && !(StepperMotors[i].delta == 0)) {
-            
+        //check if the absolute position is a whole number and that delta is non zero
+        if(ceilf(StepperMotors[i].absolutePos) == StepperMotors[i].absolutePos && StepperMotors[i].durrationInMsecs == 0) {
+            //if all conditions are met this means that the motor is still spinning
             StepperMotors[i].stepSeq++;
+            StepperMotors[i].stepSeq = (StepperMotors[i].stepSeq) % 4;
             StepperMotors[i].ControlRegWrite(steps[StepperMotors[i].stepSeq]);
         }
         

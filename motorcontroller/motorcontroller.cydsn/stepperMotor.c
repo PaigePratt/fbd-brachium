@@ -1,11 +1,16 @@
 #include "stepperMotor.h"
 #include "project.h"
 
+#include <stdio.h>
+
 stepperMotor StepperMotors[] = {
     {STM_SHOULDER_SMD_WriteCompare1, STM_SHOULDER_SMD_WriteCompare2, STM_SHOULDER_H_Bridge_Write,
         0, 0, 0, 0, 0},
     
     {STM_ELBOW_SMD_WriteCompare1, STM_ELBOW_SMD_WriteCompare2, STM_ELBOW_H_Bridge_Write,
+        0, 0, 0, 0, 0},
+    
+    {STM_ENDEFFECT_SMD_WriteCompare1, STM_ENDEFFECT_SMD_WriteCompare2, STM_ENDEFFECT_H_Bridge_Write,
         0, 0, 0, 0, 0}
 };
 
@@ -14,6 +19,13 @@ void setStepper(stepperMotor* motor, unsigned char pos, unsigned int durration) 
     unsigned char currentPos = motor->absolutePos;
     
     motor->delta += (currentPos - pos);
+    
+    if(motor->delta < (float)MIN_TIME_BETWEEN_STEPS_MS) {
+        printf("WARNING: %fms is lower than the minimum possible time between steps, supplanting with %ims instead\r\n",
+            motor->delta, MIN_TIME_BETWEEN_STEPS_MS);
+        motor->delta = MIN_TIME_BETWEEN_STEPS_MS;
+    }
+    
     motor->durrationInMsecs += durration;
 }
 

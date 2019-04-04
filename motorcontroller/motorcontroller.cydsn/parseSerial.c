@@ -28,7 +28,7 @@ void readFromUART() {
 #pragma GCC diagnostic ignored "-Wchar-subscripts"
 
 void parse() {
-    for(int i = 0; i < buffSize; i++) {
+    for(int i = 0; i <= buffSize; i++) {
         //while I doubt that such an error would arrise (namely cause 
         if(rawBuffer[i] > COMMAND_MAX) {
             //error
@@ -36,43 +36,41 @@ void parse() {
             //dump to serial
             printf("Error: command with with value %c does not exist\n", rawBuffer[i]); 
             
+        }
+        
+        else {   
+            //check to see if we have space in the command queue
+            if(queueCount+1 > currentAllocatedEntriesCQ) {
+                //if not add 4 entries
+                currentAllocatedEntriesCQ += 4;
+                realloc(commandQueue, currentAllocatedEntriesCQ * sizeof(controlCommandToken));
+            }
             
-            //exit the parser
-            //return;
+            if(rawBuffer[i] == EMERGENCY_ALL_STOP) {
+                //halt the machine
+                
+            }
+            
+            //set the function to the appropriate command
+            commandQueue[queueCount].fn = Commands[rawBuffer[i]].fn;
+            //allocate space for args
+            commandQueue[queueCount].data = malloc(Commands[rawBuffer[i]].argCount + 1); //null char for safety
+            
+            //dump the args
+            int  j;
+            for(j = 0; j < Commands[rawBuffer[i]].argCount; j++) {
+                commandQueue[queueCount].data[j] = rawBuffer[i + j];
+            }
+            i = i + j;
+            //convert the following 4 bytes into one uInt representing the time in which the event will be called
+            commandQueue[queueCount].timeInMillisec = 
+                (rawBuffer[i] << 24 | rawBuffer[i+1] << 16 | rawBuffer[i+2] << 8 | rawBuffer[i+3]);
+            i = i + 4;
+            
+            //increment things
+            queueCount++;
+            
         }
-        
-        
-        //check to see if we have space in the command queue
-        //if(queueCount+1 > currentAllocatedEntriesCQ) {
-            //if not add 4 entries
-        //    currentAllocatedEntriesCQ += 4;
-        //    realloc(commandQueue, currentAllocatedEntriesCQ * sizeof(controlCommandToken));
-        //}
-        
-        if(rawBuffer[i] == EMERGENCY_ALL_STOP) {
-            //halt the machine
-        }
-        
-        //set the function to the appropriate command
-        commandQueue[queueCount].fn = Commands[rawBuffer[i]].fn;
-        //allocate space for args
-        commandQueue[queueCount].data = malloc(Commands[rawBuffer[i]].argCount + 1); //null char for safety
-        
-        //dump the args
-        int  j;
-        for(j = 0; j < Commands[rawBuffer[i]].argCount; j++) {
-            commandQueue[queueCount].data[j] = rawBuffer[i + j];
-        }
-        i = i + j;
-        //convert the following 4 bytes into one uInt representing the time in which the event will be called
-        commandQueue[queueCount].timeInMillisec = 
-            (rawBuffer[i] << 24 | rawBuffer[i+1] << 16 | rawBuffer[i+2] << 8 | rawBuffer[i+3]);
-        i = i + 4;
-        
-        //increment things
-        queueCount++;
-        
-        
     }
 }
 
