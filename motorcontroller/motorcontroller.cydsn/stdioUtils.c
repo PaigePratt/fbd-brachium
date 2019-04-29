@@ -5,6 +5,7 @@
 
 //just in case the components name changes
 #define UART_WRITE_CHAR(c) UART_PutChar(c);
+#define UART_READ_CHAR() UART_GetChar()
 
 #if defined (__GNUC__)
     //this enables us to print out floating points when newlib-nano is enabled
@@ -28,7 +29,25 @@ int _write(int file, char* ptr, int len) {
     
     return len;
 }
+//this is untested
+int _read(int file, char* ptr, int len) {
+    //to ignore compiler warning
+    file = file;
+    int i;
 
-//TODO implement a _read() function that works
+    int truelen = len;
+    int rxBuffsz = UART_GetRxBufferSize();
+    //in the event that the buffer has recieved less than demanded
+    //only fill until the buffer empty
+    if(rxBuffsz > len) {
+        truelen = rxBuffsz+1;
+    }
+
+    for(i = 0; i < truelen; i++) {
+        *ptr++ = UART_READ_CHAR();
+    }
+
+    return truelen;
+}
 
 /* [] END OF FILE */

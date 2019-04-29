@@ -1,36 +1,48 @@
-#ifndef CONTROL_COMMANDS
+#if !defined(CONTROL_COMMANDS)
 #define CONTROL_COMMANDS 1
     
-    //function prototypes
-    
-    void setStepperMotor(char* args);
-    void setServoPos(char* args);
-    void getSensorData(char* args);
+#define CCT_INQUEUE 0
+#define CCT_DONE 1
 
-    typedef void (*controlFunction)(char*);
-    
-    //struct definitions
+//function prototypes
 
-    typedef struct {
-        controlFunction fn;
-        unsigned int timeInMillisec;
-        char* data;
-        //this char is here to align memmory and shouldnt be used for anything more
-        char align;
-    } controlCommandToken;
+void setStepperMotor(char* args);
+void holdStepper(char* args);
+
+typedef void (*controlFunction)(char*);
+
+//struct definitions
+
+typedef struct {
+    controlFunction fn;
+    unsigned int timeInMillisec;
+    char* data;
+    //this char is here to align memmory and shouldnt be used for anything more
+    char state; //marks wheather or not the command is completed
+} controlCommandToken;
+
+//only used in the lookup table
+typedef struct {
+    controlFunction fn; 
+    unsigned char argCount;
     
-    //only used in the lookup table
-    typedef struct {
-        controlFunction fn; 
-        unsigned char argCount;
-        
-    } controlCommand;
-    
-    //controlCommand functionTable[] = {
-    //    {setMotorVoltage, 2},
-    //    {setServoPos, 2},
-    //    {getSensorData, 2}
-    //};
+} controlCommand;
+
+void resetTime(char* args);
+void clearCommands(char* args);
+void pruneCompletedEvents(char* args);
+
+controlCommand Commands[] = {
+    {setStepperMotor, 6},
+    {holdStepper, 1},
+    {resetTime, 0},
+    {clearCommands, 0},
+    {pruneCompletedEvents, 0}
+};
+
+#define COMMAND_MAX 5
+
+#define EMERGENCY_ALL_STOP 0xff
 
 #endif
 /* [] END OF FILE */
