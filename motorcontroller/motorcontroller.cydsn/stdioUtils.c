@@ -29,7 +29,7 @@ int _write(int file, char* ptr, int len) {
     
     return len;
 }
-//this is untested
+
 int _read(int file, char* ptr, int len) {
     //to ignore compiler warning
     file = file;
@@ -37,9 +37,9 @@ int _read(int file, char* ptr, int len) {
 
     int truelen = len;
     int rxBuffsz = UART_GetRxBufferSize();
-    //in the event that the buffer has recieved less than demanded
-    //only fill until the buffer empty
-    if(rxBuffsz > len) {
+    //in the event that the rxBuffer is less than that of length of the requested string
+    //only send as many bytes as have been stored 
+    if(rxBuffsz < len) {
         truelen = rxBuffsz+1;
     }
 
