@@ -15,6 +15,7 @@ task_t* tasks;
 unsigned int totalTasks;
 unsigned int completedTasks;
 unsigned allocatedEntries;
-    
+unsigned char currentDiv;    
+
 #endif
 /* [] END OF FILE */

@@ -29,7 +29,7 @@ int _write(int file, char* ptr, int len) {
     
     return len;
 }
-
+/*
 int _read(int file, char* ptr, int len) {
     //to ignore compiler warning
     file = file;
@@ -49,5 +49,5 @@ int _read(int file, char* ptr, int len) {
 
     return truelen;
 }
-
+*/
 /* [] END OF FILE */

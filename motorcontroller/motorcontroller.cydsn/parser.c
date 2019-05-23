@@ -1,40 +1,27 @@
 #include "util.h"
+#include "globals.h"
 #include "tasks.h"
 #include "task.h"
 #include "project.h"
+#include "stepperMotor.h"
 #include <stdlib.h>
+
+extern stepperMotor StepperMotors[UNIQUE_STMS];
 
 #define DEFAULT_PREALLOC_SIZE 128
 #define DEFAULT_EXPANSION_AMT 8
 
 void parseSerialData() {
-    //get data
-    unsigned int currentAllocatedSize = UART_GetRxBufferSize();
-    char* buff = calloc(currentAllocatedSize, 1);
     
-    for(unsigned int i = 0; i < currentAllocatedSize; i++) {
+    char buff[4];
+    memset(buff, 0, 4);
+    
+    for(int i = 0; i < 3; i++) {
         buff[i] = UART_GetChar();
     }
     
-    //parse
-    
-    for(unsigned int i = 0; i < currentAllocatedSize; i++) {
-        switch(buff[i]) {
-        //setting motor data
-        case 0 ... 2:
-            ; 
-            
-            unsigned int dt[] = {PACK_CHARS_INTO_INT(buff[i], buff[i+1],  buff[i+2], 0)};
-            i += 3;
-            unsigned int time = PACK_ARRAY_OFF_CHARS_INTO_INT(buff, i);
-            addToTasks(time, setStepperMotorAngle, dt, 1);
-            i += 4;
-            break;
-        
-        
-        }
-        
-        
+    for(int i = 0; i < UNIQUE_STMS; i++) {
+        setStepper(&StepperMotors[i], buff[i], currentDiv);
     }
 }
 

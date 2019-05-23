@@ -1,18 +1,26 @@
 #include "stepperMotor.h"
 #include "project.h"
 
+#include <math.h>
+
 stepperMotor StepperMotors[] = {
-    {SHOULDER_SMD_WriteCompare, SHOULDER_SMD_WritePeriod,
-        SHOULDER_STEP_MODE_Write, SHOULDER_LOGIC_Write, 0, 0, 0},
-    {ELBOW_SMD_WriteCompare, ELBOW_SMD_WritePeriod,
-        ELBOW_STEP_MODE_Write, ELBOW_LOGIC_Write, 0, 0, 0}
+    {SHOULDER_STEP_MODE_Write, SHOULDER_LOGIC_Write, SHOULDER_LOGIC_Read, 0, 0, 0},
+    {ELBOW_STEP_MODE_Write, ELBOW_LOGIC_Write, ELBOW_LOGIC_Read, 0, 0, 0}, 
+    {}
 };
 
-void setStepper(stepperMotor* motor, signed short pos, signed short delta) {
-    motor->totalDelta = (motor->absolutePos - pos);
+void setStepper(stepperMotor* motor, signed int angle, unsigned char div) {
+    int divmult = pow(2, div);
     
-    //motor->delta = (motor->totalDelta / MIN_TIME_BETWEEN_FULL_STEPS_MS);
-    motor->delta = delta;
+    int oldDiv = pow(2 ,motor->ControlRegRead());
+   
+    int angleDelta = angle - ((motor->absolutePos*1.8)/oldDiv);
+    
+    motor->delta = angle > 0 ? 1 : -1;
+    
+    motor->totalDelta = (angleDelta/1.8) * divmult;
+    
+    motor->ControlRegWrite(div);
 }
 
 /* [] END OF FILE */

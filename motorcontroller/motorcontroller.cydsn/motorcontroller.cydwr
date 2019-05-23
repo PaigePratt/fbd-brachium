@@ -305,6 +305,7 @@
       <Data key="0feb6bc9-cf66-4855-b9a4-0154a1ed41ab" value="STM_ENDEFFECT_LOGIC" />
       <Data key="1e63ffbb-9eb2-4bf3-af2e-c9a90e5b1318" value="ELBOW_LOGIC" />
       <Data key="4d81dd40-49a0-4f01-8d0a-85c6e2a068fd" value="outthing" />
+      <Data key="5ef6d28a-b8e2-4114-910d-75e3cce086c8/52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="SW_Tx_UART_1_tx" />
       <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="StepOnce" />
       <Data key="8e277cfc-1218-4ebc-8ca3-b7958124ada5" value="STM_SHOULDER_A" />
       <Data key="9d2e38e8-1aa5-403d-a9db-9f1ceb97145e" value="STM_SHOULDER_OUT" />
@@ -314,12 +315,13 @@
       <Data key="1249a781-aed8-4715-ab2c-6ce9c1138c30" value="STM_ELBOW_OUT" />
       <Data key="5110ccd2-cc7a-4f93-a2b4-b86a972e3b71" value="STM_Coil_2" />
       <Data key="52947c57-754a-4cdf-a2b3-953e813a6110" value="STM_SHOULDER_B" />
-      <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="Rx" />
+      <Data key="1425177d-0d0e-4468-8bcc-e638e5509a9b" value="Rx_1" />
       <Data key="99784350-d391-4da3-8b40-cae14b5d9f30" value="STM_SHOULDER_A_N" />
+      <Data key="a6d9be17-4e3a-4a4a-8914-a2b09dcd5d15" value="TURNTABLE_LOGIC" />
       <Data key="df35f1fb-9224-4f85-920a-186fb94d13a5" value="SHOULDER_LOGIC" />
       <Data key="e5f0f8fd-ddca-4f8d-91ab-d1559edc5c0b" value="Supply" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="SleepDisable" />
-      <Data key="ed092b9b-d398-4703-be89-cebf998501f6" value="Tx" />
+      <Data key="ed092b9b-d398-4703-be89-cebf998501f6" value="Tx_1" />
     </Group>
   </Group>
   <Group key="EEPROM">
@@ -3472,11 +3474,6 @@
         <Data key="Port Format" value="0,1" />
       </Group>
     </Group>
-    <Group key="1425177d-0d0e-4468-8bcc-e638e5509a9b">
-      <Group key="0">
-        <Data key="Port Format" value="0,4" />
-      </Group>
-    </Group>
     <Group key="99784350-d391-4da3-8b40-cae14b5d9f30">
       <Group key="0">
         <Data key="Port Format" value="0,2" />
@@ -3518,13 +3515,23 @@
         <Data key="Port Format" value="1,7" />
       </Group>
     </Group>
-    <Group key="ed092b9b-d398-4703-be89-cebf998501f6">
-      <Group key="0">
-        <Data key="Port Format" value="0,7" />
+    <Group key="UnAssigned Pins" />
+    <Group key="Unlocked Pins">
+      <Group key="1425177d-0d0e-4468-8bcc-e638e5509a9b">
+        <Group key="0">
+          <Group key="132030432094666507">
+            <Data key="Port Format" value="12,4" />
+          </Group>
+        </Group>
+      </Group>
+      <Group key="ed092b9b-d398-4703-be89-cebf998501f6">
+        <Group key="0">
+          <Group key="132030432126722664">
+            <Data key="Port Format" value="12,3" />
+          </Group>
+        </Group>
       </Group>
     </Group>
-    <Group key="UnAssigned Pins" />
-    <Group key="Unlocked Pins" />
   </Group>
   <Group key="PlaceDir">
     <Data key="count" value="0" />

@@ -26,7 +26,7 @@ util.h: misc utilites and preprocessor defs
         a = (var << 8) & 0xFF;\
         b = var & 0xFF
     
-    
+    #define GET_BIT(var, pos) ((var & ( 1 << pos )) >> pos)
     
 #endif
 /* [] END OF FILE */
