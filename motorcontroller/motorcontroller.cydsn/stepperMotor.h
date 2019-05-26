@@ -8,7 +8,7 @@
 //this is the maximum number of steps to do one 360 degree rotation
 #define STM_MAX_STEPS_PER_REV 200
 
-#define UNIQUE_STMS 2
+#define UNIQUE_STMS 3
     
 #define DV_STEP_FULL 0x0
 #define DV_STEP_HALF 0x1

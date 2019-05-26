@@ -19,7 +19,7 @@ extern void parseSerialData();
 unsigned short lastInitializedToken = 0;
 unsigned short queueItor;
 
-extern stepperMotor StepperMotors[2];
+extern stepperMotor StepperMotors[UNIQUE_STMS];
 
 //this is the handler that the oneMillisecPassed inturrupt calls
 void milliSecPassed() {
@@ -43,11 +43,10 @@ int main(void) {
     //totalTasks = 0;
     //completedTasks = 0;
     currentDiv = DV_STEP_FULL;
-    StepperMotors[1].absolutePos = 0;
-    setStepper(&StepperMotors[1], -90, 0);
+
     for(;;) {
         printf("This is a test\n");
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < UNIQUE_STMS; i++) {
             
             if(StepperMotors[i].totalDelta) {
                 //TODO change this

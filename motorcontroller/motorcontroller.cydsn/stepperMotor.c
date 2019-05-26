@@ -6,7 +6,7 @@
 stepperMotor StepperMotors[] = {
     {SHOULDER_STEP_MODE_Write, SHOULDER_LOGIC_Write, SHOULDER_LOGIC_Read, 0, 0, 0},
     {ELBOW_STEP_MODE_Write, ELBOW_LOGIC_Write, ELBOW_LOGIC_Read, 0, 0, 0}, 
-    {}
+    {TURNTABLE_STEP_MODE_Write, TURNTABLE_LOGIC_Write, TURNTABLE_LOGIC_Read, 0, 0, 0}
 };
 
 void setStepper(stepperMotor* motor, signed int angle, unsigned char div) {
