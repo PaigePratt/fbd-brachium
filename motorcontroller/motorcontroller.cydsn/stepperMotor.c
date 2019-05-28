@@ -10,6 +10,7 @@ stepperMotor StepperMotors[] = {
 };
 
 void setStepper(stepperMotor* motor, signed int angle, unsigned char div) {
+    motor->absolutePos = motor->absolutePos % 360;
     int divmult = pow(2, div);
     
     int oldDiv = pow(2 ,motor->ControlRegRead());

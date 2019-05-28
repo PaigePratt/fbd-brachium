@@ -14,21 +14,34 @@ extern stepperMotor StepperMotors[UNIQUE_STMS];
 
 
 void parseSerialData() {
+    unsigned int sz = USBUART_GetCount();
+    signed char buff[sz+1];
+    memset(buff, 0, sz+1);
+    char buff_buff[5];
+    buff_buff[4] = 0;
     
-    char buff[4];
-    memset(buff, 0, 4);
-    
-    UARTprintf("getting data\n");
-    
-    for(int i = 0; i < 3; i++) {
-        buff[i] = UARTGETCHAR();
+    for(unsigned int i = 0; i < sz; i++) {
+        buff[i] = (signed char)UARTGETCHAR();
+        while(!USBUART_CDCIsReady());
     }
     
-    UARTprintf("Got serial data: %s\n", buff);
+    
+    //USBUART_PutString(buff);
     
     for(int i = 0; i < UNIQUE_STMS; i++) {
-        setStepper(&StepperMotors[i], buff[i], currentDiv);
+        //setStepper(&StepperMotors[i], (signed int)buff[i], currentDiv);
+        signed int angle = (signed int) buff[i];
+        StepperMotors[i].ControlRegWrite(currentDiv);
+        StepperMotors[i].delta = 1;//angle > 0 ? 1 : -1;
+        StepperMotors[i].totalDelta = ((signed int)buff[i])/1.8;
+        
+        itoa(StepperMotors[i].totalDelta, buff_buff, 10);
+        USBUART_PutString(buff_buff);
+        while(!USBUART_CDCIsReady());
+        
     }
+    
+    USBUART_PutCRLF();
 }
 
 /* [] END OF FILE */

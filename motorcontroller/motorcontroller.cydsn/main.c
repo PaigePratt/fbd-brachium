@@ -27,7 +27,7 @@ void UARTprintf(const char* fmt, ...) {
     memset(buff, 0, 64);
     vsprintf(buff, fmt, vl);
     USBUART_PutString(buff);
-    va_end(vl);
+    //va_end(vl);
 }
 
 //this is the handler that the oneMillisecPassed inturrupt calls
@@ -46,22 +46,37 @@ int main(void) {
     
     USBUART_Start(0, USBUART_5V_OPERATION);
     
+    while(!USBUART_bGetConfiguration());
+    USBUART_CDC_Init();
+    
     //MillisecTimer_Start();
     //tasks = calloc(DEFAULT_PREALLOCATED_SPACE, sizeof(task_t));
     //totalTasks = 0;
     //completedTasks = 0;
-    
+    setStepper(&StepperMotors[1], 90, DV_STEP_FULL);
     currentDiv = DV_STEP_FULL;
-    CyDelay(500);
-    UARTprintf("FBD-Brachium Serial Debug Terminal\n\rCode by Demian Ihrig (Demian.l.ihrig@gmail.com)\n\r");
-    
-    UARTprintf("Entering Main Loop\n\r");
+    //USBUART_PutString("FBD-Brachium Serial Debug Terminal\n");
+    setStepper(&StepperMotors[1], (signed int)0x5A, 0);
+    char b;
+    //USBUART_PutString("Entering Main Loop\n\r");
     for(;;) {
         
+        //USBUART_GetData(buff, USBUART_GetCount());
+        //if(USBUART_GetCount()) {
+        //    auto sz = USBUART_GetCount();
+        //    for(int i = 0; i < sz; i++) {
+        //        b = USBUART_GetChar();
+        //        USBUART_PutChar(b);
+        //        while(!USBUART_CDCIsReady());
+        //    }
+        //    
+        //}
+        //if(buff[0]) {
+        //    USBUART_PutString(buff);
+        //}
+        
         if(USBUART_GetCount()) {
-            //parseSerialData();
-            char b = USBUART_GetChar();
-            USBUART_PutChar(b);
+            parseSerialData();
         }
         
         for(int i = 0; i < UNIQUE_STMS; i++) {
