@@ -4,8 +4,8 @@
 #include "project.h"
 
 //just in case the components name changes
-#define UART_WRITE_CHAR(c) UART_PutChar(c);
-#define UART_READ_CHAR() UART_GetChar()
+#define UART_WRITE_CHAR(c) USBUART_PutChar(c)
+#define UART_READ_CHAR() USBUART_GetChar()
 
 #if defined (__GNUC__)
     //this enables us to print out floating points when newlib-nano is enabled
@@ -18,14 +18,25 @@
 int _write(int file, char* ptr, int len) {
     // i has to be predefined outside of forloops as some compilers (namely non GCC/MSVC ones)
     // dont support inline definitions
-    int i;
+    //int i;
     //this line is just here to avoid compiler warnings
     file = file;
     
     //the for loop itself just simply sends byte by byte text data
-    for(i = 0; i < len; i++) {
-        UART_WRITE_CHAR(*ptr++);
+    //for(i = 0; i < len; i++) {
+    //    UART_WRITE_CHAR(*ptr++);
+    //}
+    
+    
+    char buff[len + 1];
+    memset(buff, 0, len + 1);
+    memcpy(buff, ptr, len);
+    
+    for(int i = 0; i < (len/64) + 1; i++) {
+        USBUART_PutString(&buff[64*i]);
     }
+    
+    
     
     return len;
 }

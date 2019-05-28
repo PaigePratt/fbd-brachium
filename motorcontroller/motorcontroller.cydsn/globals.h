@@ -16,6 +16,6 @@ unsigned int totalTasks;
 unsigned int completedTasks;
 unsigned allocatedEntries;
 unsigned char currentDiv;    
-
+unsigned int debug_loop_count;
 #endif
 /* [] END OF FILE */
