@@ -1,46 +1,27 @@
 #include "stepperMotor.h"
 #include "project.h"
 
-#include <stdio.h>
+#include <math.h>
 
 stepperMotor StepperMotors[] = {
-    {STM_SHOULDER_SMD_WriteCompare1, STM_SHOULDER_SMD_WriteCompare2, STM_SHOULDER_H_Bridge_Write,
-        0, 0, 0, 0, 0},
-    
-    {STM_ELBOW_SMD_WriteCompare1, STM_ELBOW_SMD_WriteCompare2, STM_ELBOW_H_Bridge_Write,
-        0, 0, 0, 0, 0},
-    
-    {STM_ENDEFFECT_SMD_WriteCompare1, STM_ENDEFFECT_SMD_WriteCompare2, STM_ENDEFFECT_H_Bridge_Write,
-        0, 0, 0, 0, 0}
+    {SHOULDER_STEP_MODE_Write, SHOULDER_LOGIC_Write, SHOULDER_LOGIC_Read, 0, 0, 0},
+    {ELBOW_STEP_MODE_Write, ELBOW_LOGIC_Write, ELBOW_LOGIC_Read, 0, 0, 0}, 
+    {TURNTABLE_STEP_MODE_Write, TURNTABLE_LOGIC_Write, TURNTABLE_LOGIC_Read, 0, 0, 0}
 };
 
-void setStepper(stepperMotor* motor, unsigned char pos, unsigned int durration) {
-    //delta calculation
-    unsigned char currentPos = motor->absolutePos;
+void setStepper(stepperMotor* motor, signed int angle, unsigned char div) {
+    motor->absolutePos = motor->absolutePos % 360;
+    int divmult = pow(2, div);
     
-    motor->delta += (currentPos - pos);
+    int oldDiv = pow(2 ,motor->ControlRegRead());
+   
+    int angleDelta = angle - ((motor->absolutePos*1.8)/oldDiv);
     
-    if(motor->delta < (float)MIN_TIME_BETWEEN_STEPS_MS) {
-        printf("WARNING: %fms is lower than the minimum possible time between steps, supplanting with %ims instead\r\n",
-            motor->delta, MIN_TIME_BETWEEN_STEPS_MS);
-        motor->delta = MIN_TIME_BETWEEN_STEPS_MS;
-    }
+    motor->delta = angle > 0 ? 1 : -1;
     
-    motor->durrationInMsecs += durration;
-}
-
-void setStepperMotor(char* args) {
-    char motor = args[0];
-    char pos = args[1];
-    unsigned int durr = (args[2] << 24 | args[3] << 16 | args[4] << 8 | args[5]);
+    motor->totalDelta = (angleDelta/1.8) * divmult;
     
-    setStepper(&StepperMotors[motor], pos, durr);
-}
-
-void holdStepper(char* args) {
-    char motor = args[0];
-    
-    setStepper(&StepperMotors[motor], 0, 0);
+    motor->ControlRegWrite(div);
 }
 
 /* [] END OF FILE */
