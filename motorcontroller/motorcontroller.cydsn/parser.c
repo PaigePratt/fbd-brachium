@@ -1,47 +1,50 @@
 #include "util.h"
 #include "globals.h"
-#include "tasks.h"
-#include "task.h"
 #include "project.h"
 #include "stepperMotor.h"
 #include <stdlib.h>
 #include <stdio.h>
-extern stepperMotor StepperMotors[UNIQUE_STMS];
 
-#define DEFAULT_PREALLOC_SIZE 128
-#define DEFAULT_EXPANSION_AMT 8
 #define UARTGETCHAR() USBUART_GetChar()
 
+#define BYTES_EXPECTED 3u
 
-void parseSerialData() {
-    unsigned int sz = USBUART_GetCount();
+//debug varaible, marks the number of times bytes were recieved but not the the neccesary number to constitute a proper command
+unsigned int dbg_falsePositives;
+
+//parseSerialData(): contains all the code to parse and income serial data from the computer and convert it into relevant angle delta information
+void parseSerialData(unsigned int sz) {
+    
+    //preallocate a buffer and set all entries within it to zero for saftey's sake
     signed char buff[sz+1];
     memset(buff, 0, sz+1);
-    char buff_buff[5];
-    buff_buff[4] = 0;
     
+    //get incoming serial data and put it into the buffer
+    //this must be done reguardless if the data is valid data (see next block of comments)
+    //otherwise the data is left within the hardware buffer and will corrupt/offset real data on the next function call
     for(unsigned int i = 0; i < sz; i++) {
         buff[i] = (signed char)UARTGETCHAR();
+        USBUART_PutChar(buff[i]);
         while(!USBUART_CDCIsReady());
+        
     }
     
+    //we've found that there is occasional bytes and data that is sent to the machine unintentionally
+    //most likely its the OS polling the device to see if it went to sleep or not
+    //reguardless if the size is 
+    if(sz < BYTES_EXPECTED) {
+        dbg_falsePositives++;
+        return;
+    }
     
-    //USBUART_PutString(buff);
-    
+    //index through the bytes and convert them into proper angles and deltas
     for(int i = 0; i < UNIQUE_STMS; i++) {
-        //setStepper(&StepperMotors[i], (signed int)buff[i], currentDiv);
-        signed int angle = (signed int) buff[i];
+        signed int angle =  (int)buff[i];
         StepperMotors[i].ControlRegWrite(currentDiv);
-        StepperMotors[i].delta = 1;//angle > 0 ? 1 : -1;
-        StepperMotors[i].totalDelta = ((signed int)buff[i])/1.8;
-        
-        itoa(StepperMotors[i].totalDelta, buff_buff, 10);
-        USBUART_PutString(buff_buff);
-        while(!USBUART_CDCIsReady());
+        StepperMotors[i].delta = (angle > 0 ? 1 : -1);
+        StepperMotors[i].totalDelta = (angle)/1.8 * (StepperMotors[i].ratioNum/StepperMotors[i].ratioDen);
         
     }
-    
-    USBUART_PutCRLF();
 }
 
 /* [] END OF FILE */

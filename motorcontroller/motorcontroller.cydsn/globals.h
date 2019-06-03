@@ -2,20 +2,13 @@
     
 #if !defined(GLOBAL_VARS)
 #define GLOBAL_VARS
-
-#include <task.h>
-// Global varibles
-
-
-unsigned int milliseconds;
-
 #define DEFAULT_PREALLOCATED_SPACE 128
+#include "stepperMotor.h"
 
-task_t* tasks;
-unsigned int totalTasks;
-unsigned int completedTasks;
-unsigned allocatedEntries;
-unsigned char currentDiv;    
-unsigned int debug_loop_count;
+//this varable holds the microstepping setting
+unsigned char currentDiv;
+//this is just here to allow main() and parseSeralData() to access the stepper motors and their data
+extern stepperMotor StepperMotors[UNIQUE_STMS];
+
 #endif
 /* [] END OF FILE */
