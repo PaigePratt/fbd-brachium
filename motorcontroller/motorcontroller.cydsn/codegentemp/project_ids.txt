@@ -1,6 +1,7 @@
-C:\Users\Nathan\workspace\fbd-brachium\motorcontroller\motorcontroller.cydsn\motorcontroller.cyprj|71b6612b-00ba-44c5-ac86-9bd43b3d5c78
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|7abb441c-2c07-4d5d-917b-1b34ee4c1969
-C:\Users\Nathan\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|dc602971-7456-40d0-b834-e71bfa77c5fe
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|28367ec9-514c-4c25-995a-6eea36dcf20e
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|93ab03f4-784b-47b2-a3e0-bb73075adadf
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|a17f4dec-1603-4317-b4ca-0b0e96702eb9
+C:\Users\s-2508809\Desktop\fbd-brachium\motorcontroller\motorcontroller.cydsn\motorcontroller.cyprj|601202a0-2adb-485d-ada5-e31f9d2896a0
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|e9f9aee0-f5f2-4471-b5ef-d56ad246eb1e
+\\shares\studenthome\S-2508809\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|d7f6b3fd-572a-4e87-b8a0-393523d4d88d
+\\shares\studenthome\S-2508809\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|deea9091-5ed2-4cbc-bf54-a1e3a1aab9de
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|60383852-b0cf-48db-87cf-6ede72c2638e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|b67f8d1b-bc4b-46a6-91e2-151f76d49458
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|106fa82f-2749-42ba-8e6a-54b45c2ffb0c

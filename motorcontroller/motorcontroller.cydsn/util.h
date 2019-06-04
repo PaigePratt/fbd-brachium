@@ -28,7 +28,5 @@ util.h: misc utilites and preprocessor defs
     
     #define GET_BIT(var, pos) ((var & ( 1 << pos )) >> pos)
     
-    void UARTprintf(const char* fmt, ...);
-    
 #endif
 /* [] END OF FILE */
