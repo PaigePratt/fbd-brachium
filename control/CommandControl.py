@@ -2,25 +2,19 @@ import serial
 import math
 import time
 
-u = 6.5
-f = 7.0
+u = 8.5
+f = 6.5
 
 shoulderPos = 90
 forearmPos = 90
 turntablePos = 0
 
-userSerial = False
+useSerial = False
 
-def gotoAngle(shoulderAngle, forearmAngle, turntableAngle):
+def gotoAngle(forearmAngle, shoulderAngle, turntableAngle):
     shoulderAngle = shoulderAngle * 180 / math.pi
     forearmAngle = forearmAngle * 180 / math.pi
     turntableAngle = turntableAngle * 180 / math.pi
-    if shoulderAngle < 0 or shoulderAngle > 90:
-        print("Given shoulder angle is outside range (0 to 90 degrees)")
-        return
-    if forearmAngle < 0 or forearmAngle > 180:
-        print("Given forearm angle is outside range (0 to 180 degrees)")
-        return
 
     global shoulderPos
     global forearmPos
@@ -33,13 +27,20 @@ def gotoAngle(shoulderAngle, forearmAngle, turntableAngle):
     deltaTurntable = turntableAngle - turntablePos
     turntablePos = turntableAngle
 
-    message = bytes([math.ceil(deltaShoulder + 127), math.ceil(deltaForearm + 127), math.ceil(deltaTurntable + 127)])
+    if(deltaForearm < 0):
+        deltaForearm = 256 - (deltaForearm * -1)
+    if(deltaShoulder < 0):
+        deltaShoulder = 256 - (deltaShoulder * -1)
+    if(deltaTurntable < 0):
+        deltaTurntable = 256 - (deltaTurntable * -1)
 
-    print(message.hex())
+    message = bytes([math.ceil(deltaForearm), math.ceil(deltaShoulder), math.ceil(deltaTurntable)])
+
+    print("Deltas (Hex) " + message.hex())
     if useSerial:
         ser.write(message)
         print("wrote serial, received:")
-        print(ser.read().decode(encoding="utf-8"))
+        print(ser.read(3).hex())
     return
 
 def gotoCoord(x, y, z):
@@ -77,7 +78,15 @@ while(True):
 
     if "exit" == splitcommand[0] or "quit" == splitcommand[0]:
         print("Goodbye")
+        if useSerial:
+            ser.close()
         exit()
+
+    if "zero" == splitcommand[0]:
+        shoulderPos = 90
+        forearmPos = 90
+        turntablePos = 0
+        continue
 
     if "help" == splitcommand[0] or "h" == splitcommand[0]:
         print("Commands: r to send raw, a to send angles, and c to calculate angles for a given coord. Pass -h to any command for more specific help.")
@@ -106,7 +115,7 @@ while(True):
         gotoCoord(splitcommand[1], splitcommand[2], splitcommand[3])
         continue
 
-    if "xDemo" == splitcommand[0]:
+    if "2D circle" == splitcommand[0]:
         splitcommand[0] = "circleX"
         splitcommand.append(10)
         splitcommand.append(4)
@@ -129,7 +138,7 @@ while(True):
             time.sleep(duration / resolution)
         continue
 
-    if "demo" == splitcommand[0]:
+    if "circle" == splitcommand[0]:
         splitcommand[0] = "circleZ"
         splitcommand.append(0)
         splitcommand.append(4)
@@ -162,5 +171,6 @@ while(True):
             ser.close()
             useSerial = False
             continue
+        continue
 
     print("Unrecognized command try help for help")
